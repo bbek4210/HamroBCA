@@ -48,7 +48,8 @@ app.use('/api', routes);
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to HamroBCA API',
-    version: '1.0.0',
+    version: '1.0.1',
+    cors: 'fixed',
     endpoints: {
       health: '/api/health',
       auth: '/api/auth',
