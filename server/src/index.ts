@@ -17,7 +17,12 @@ connectDB();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['http://localhost:3000'] // Add your production domain here
+    ? [
+        'https://hamrobca-ljdxsad0l-bibekbhandaris-projects.vercel.app',
+        'https://hamrobca-9rt1q3d8d-bibekbhandaris-projects.vercel.app',
+        'https://hamrobca.vercel.app',
+        'http://localhost:3000'
+      ]
     : ['http://localhost:3000'],
   credentials: true
 }));
