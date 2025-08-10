@@ -1,25 +1,25 @@
 import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 
-// Ensure upload directory exists
-const uploadDir = 'uploads';
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'your-cloud-name',
+  api_key: process.env.CLOUDINARY_API_KEY || 'your-api-key',
+  api_secret: process.env.CLOUDINARY_API_SECRET || 'your-api-secret'
+});
 
-// Configure storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    // Generate unique filename with timestamp
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const extension = path.extname(file.originalname);
-    const filename = `${file.fieldname}-${uniqueSuffix}${extension}`;
-    cb(null, filename);
-  }
+// Configure multer with Cloudinary storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'hamrobca',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx', 'txt'],
+    resource_type: 'auto',
+    transformation: [
+      { width: 1000, height: 1000, crop: 'limit' } // Limit image size
+    ]
+  } as any
 });
 
 // File filter for allowed types

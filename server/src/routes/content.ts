@@ -161,9 +161,9 @@ router.post('/', authenticateAdmin, upload.single('file'), async (req, res) => {
     const content = new Content({
       ...validatedData,
       subjectCode: validatedData.subjectCode.toUpperCase(),
-      fileName: req.file.filename, // Use the actual saved filename, not originalname
+      fileName: req.file.filename, // Cloudinary public ID
       originalName: req.file.originalname, // Store original name separately
-      filePath: req.file.path,
+      filePath: req.file.path, // Cloudinary URL
       fileSize: req.file.size,
       fileType: req.file.mimetype,
       uploadedBy: (req as any).admin._id
