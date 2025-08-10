@@ -16,15 +16,10 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? [
-        'https://hamrobca-ljdxsad0l-bibekbhandaris-projects.vercel.app',
-        'https://hamrobca-9rt1q3d8d-bibekbhandaris-projects.vercel.app',
-        'https://hamrobca.vercel.app',
-        'http://localhost:3000'
-      ]
-    : ['http://localhost:3000'],
-  credentials: true
+  origin: true, // Allow all origins temporarily
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json({ limit: '50mb' }));
