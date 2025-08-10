@@ -26,8 +26,10 @@ export default function ContentViewer({ content, isOpen, onClose }: ContentViewe
   const isImage = content.fileType.startsWith('image/');
   const isText = content.fileType === 'text/plain';
 
-  // Use the filename directly since it's now stored as the actual saved filename
-  const fileUrl = `http://localhost:5000/uploads/${content.fileName}`;
+  // Use Cloudinary URL if available, otherwise fallback to local uploads
+  const fileUrl = content.filePath.startsWith('http') 
+    ? content.filePath 
+    : `https://hamrobca.onrender.com/uploads/${content.fileName}`;
 
   const handleZoomIn = () => setZoom(prev => Math.min(200, prev + 25));
   const handleZoomOut = () => setZoom(prev => Math.max(50, prev - 25));
