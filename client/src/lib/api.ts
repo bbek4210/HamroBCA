@@ -7,15 +7,26 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // Force fresh requests to avoid CORS cache issues
+  withCredentials: false,
 });
 
-// Request interceptor to add auth token
+// Request interceptor to add auth token and cache busting
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('adminToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    
+    // Add cache busting parameter to avoid CORS cache issues
+    if (config.method === 'get') {
+      config.params = {
+        ...config.params,
+        _t: Date.now()
+      };
+    }
+    
     return config;
   },
   (error) => {
