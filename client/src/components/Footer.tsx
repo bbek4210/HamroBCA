@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookOpen, Mail, Phone, MapPin } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

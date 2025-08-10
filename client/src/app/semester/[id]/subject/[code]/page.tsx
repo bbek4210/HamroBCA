@@ -7,14 +7,12 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { 
   BookOpen, 
-  Download, 
   FileText, 
   PenTool, 
   Clipboard,
   FlaskConical,
   Clock,
   ChevronRight,
-  Filter,
   Search,
   Eye,
   Calendar
@@ -51,7 +49,7 @@ interface Content {
   createdAt: string;
 }
 
-const categoryIcons: Record<string, any> = {
+const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   notes: FileText,
   past_papers: PenTool,
   handwritten_notes: BookOpen,
@@ -117,32 +115,7 @@ export default function SubjectPage() {
     setIsViewerOpen(true);
   };
 
-  const handleDownload = async (contentId: string, fileName: string) => {
-    try {
-      const response = await api.get(`/content/${contentId}/download`, {
-        responseType: 'blob'
-      });
-      
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', fileName);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
 
-      // Update download count in UI
-      setContent(prev => prev.map(item => 
-        item._id === contentId 
-          ? { ...item, downloadCount: item.downloadCount + 1 }
-          : item
-      ));
-    } catch (error) {
-      console.error('Download failed:', error);
-      alert('Download failed. Please try again.');
-    }
-  };
 
   const filteredContent = content.filter(item => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;

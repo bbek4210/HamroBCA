@@ -5,12 +5,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { 
-  BookOpen, 
-  Clock, 
-  Users, 
   ChevronRight,
-  Download,
-  FlaskConical,
   GraduationCap
 } from 'lucide-react';
 import api from '@/lib/api';

@@ -8,9 +8,7 @@ import {
   Menu, 
   X, 
   User, 
-  LogOut, 
-  Settings,
-  Bell
+  LogOut
 } from 'lucide-react';
 
 interface AdminNavbarProps {

@@ -35,7 +35,7 @@ interface Notice {
 }
 
 export default function AdminNoticesPage() {
-  const [adminData, setAdminData] = useState<any>(null);
+  const [adminData, setAdminData] = useState<{ email: string; name?: string } | null>(null);
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -129,7 +129,7 @@ export default function AdminNoticesPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
-        <AdminNavbar adminData={adminData} />
+        <AdminNavbar adminData={adminData || undefined} />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}

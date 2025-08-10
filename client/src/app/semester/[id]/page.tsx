@@ -8,7 +8,6 @@ import Footer from '@/components/Footer';
 import { 
   BookOpen, 
   Clock, 
-  Users, 
   ChevronRight,
   FileText,
   PenTool,

@@ -45,7 +45,7 @@ interface Subject {
 
 export default function UploadContentPage() {
   const router = useRouter();
-  const [adminData, setAdminData] = useState<any>(null);
+  const [adminData, setAdminData] = useState<{ email: string; name?: string } | null>(null);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -57,7 +57,7 @@ export default function UploadContentPage() {
     register,
     handleSubmit,
     watch,
-    setValue,
+
     formState: { errors }
   } = useForm<ContentForm>({
     resolver: zodResolver(contentSchema),
@@ -170,9 +170,12 @@ export default function UploadContentPage() {
       setTimeout(() => {
         router.push('/admin/content');
       }, 2000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Upload error:', error);
-      setError(error.response?.data?.message || 'Upload failed. Please try again.');
+      const errorMessage = error && typeof error === 'object' && 'response' in error 
+        ? (error.response as { data?: { message?: string } })?.data?.message || 'Upload failed. Please try again.'
+        : 'Upload failed. Please try again.';
+      setError(errorMessage);
     } finally {
       setUploading(false);
     }
@@ -201,7 +204,7 @@ export default function UploadContentPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
-        <AdminNavbar adminData={adminData} />
+        <AdminNavbar adminData={adminData || undefined} />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}

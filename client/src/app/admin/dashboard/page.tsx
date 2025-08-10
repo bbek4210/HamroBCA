@@ -8,15 +8,11 @@ import {
   FileText, 
   Bell, 
   BookOpen, 
-  Users, 
   Download,
   Plus,
-  TrendingUp,
-  Calendar,
   Eye,
   BarChart3,
-  Clock,
-  AlertCircle
+  Clock
 } from 'lucide-react';
 import api from '@/lib/api';
 import { formatDate, getCategoryDisplayName, getSemesterName } from '@/lib/utils';
@@ -26,14 +22,14 @@ interface DashboardStats {
   totalSubjects: number;
   totalNotices: number;
   totalDownloads: number;
-  recentContent: any[];
-  recentNotices: any[];
+  recentContent: Array<{ _id: string; title: string; category: string; semester: number; subjectCode: string; createdAt: string; downloadCount?: number }>;
+  recentNotices: Array<{ _id: string; title: string; content: string; isUrgent: boolean; type?: string; createdAt: string; isPublished?: boolean }>;
   contentByCategory: Record<string, number>;
   contentBySemester: Record<string, number>;
 }
 
 export default function AdminDashboardPage() {
-  const [adminData, setAdminData] = useState<any>(null);
+  const [adminData, setAdminData] = useState<{ email: string; name?: string } | null>(null);
   const [stats, setStats] = useState<DashboardStats>({
     totalContent: 0,
     totalSubjects: 0,
@@ -63,16 +59,16 @@ export default function AdminDashboardPage() {
         ]);
 
         const content = contentRes.data.content || [];
-        const totalDownloads = content.reduce((sum: number, item: any) => sum + (item.downloadCount || 0), 0);
+        const totalDownloads = content.reduce((sum: number, item: { downloadCount?: number }) => sum + (item.downloadCount || 0), 0);
 
         // Group content by category
-        const contentByCategory = content.reduce((acc: Record<string, number>, item: any) => {
+        const contentByCategory = content.reduce((acc: Record<string, number>, item: { category: string }) => {
           acc[item.category] = (acc[item.category] || 0) + 1;
           return acc;
         }, {});
 
         // Group content by semester
-        const contentBySemester = content.reduce((acc: Record<string, number>, item: any) => {
+        const contentBySemester = content.reduce((acc: Record<string, number>, item: { semester: number }) => {
           const semester = `Semester ${item.semester}`;
           acc[semester] = (acc[semester] || 0) + 1;
           return acc;
@@ -132,14 +128,14 @@ export default function AdminDashboardPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
-        <AdminNavbar adminData={adminData} />
+        <AdminNavbar adminData={adminData || undefined} />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
             <p className="text-gray-600 mt-2">
-              Welcome back, {adminData?.email || 'Admin'}! Here's what's happening on HamroBCA.
+              Welcome back, {adminData?.email || 'Admin'}! Here&apos;s what&apos;s happening on HamroBCA.
             </p>
           </div>
 
@@ -246,7 +242,7 @@ export default function AdminDashboardPage() {
                   </div>
                 ) : stats.recentContent.length > 0 ? (
                   <div className="space-y-4">
-                    {stats.recentContent.map((item: any) => (
+                    {stats.recentContent.map((item) => (
                       <div key={item._id} className="flex items-start justify-between">
                         <div className="flex-1">
                           <h3 className="text-sm font-medium text-gray-900 line-clamp-1">
@@ -298,7 +294,7 @@ export default function AdminDashboardPage() {
                   </div>
                 ) : stats.recentNotices.length > 0 ? (
                   <div className="space-y-4">
-                    {stats.recentNotices.map((notice: any) => (
+                    {stats.recentNotices.map((notice) => (
                       <div key={notice._id} className="border-l-4 border-blue-500 pl-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">

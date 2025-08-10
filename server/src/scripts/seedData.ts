@@ -75,10 +75,24 @@ const seedData = async () => {
       { name: 'Cyber Law and Professional Ethics', code: 'CACS401', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 1, labHours: 0 },
       { name: 'Cloud Computing', code: 'CACS402', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 3 },
       { name: 'Internship', code: 'CAIN403', semester: 7, creditHours: 3, lectureHours: 0, tutorialHours: 0, labHours: 0 },
+      { name: 'Image Processing', code: 'CACS404', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Database Administration', code: 'CACS405', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Network Administration', code: 'CACS406', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Advanced Dot Net Technology', code: 'CACS408', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'E-Governance', code: 'CACS409', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Artificial Intelligence', code: 'CACS410', semester: 7, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
 
       // Semester 8
       { name: 'Operations Research', code: 'CAOR451', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 1, labHours: 0 },
-      { name: 'Project III', code: 'CAPJ452', semester: 8, creditHours: 6, lectureHours: 0, tutorialHours: 0, labHours: 12 }
+      { name: 'Project III', code: 'CAPJ452', semester: 8, creditHours: 6, lectureHours: 0, tutorialHours: 0, labHours: 12 },
+      { name: 'Database Programming', code: 'CACS453', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Geographical Information System', code: 'CACS454', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Data Analysis and Visualization', code: 'CACS455', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Machine Learning', code: 'CACS456', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Multimedia System', code: 'CACS457', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Knowledge Engineering', code: 'CACS458', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Information Security', code: 'CACS459', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 },
+      { name: 'Internet of Things', code: 'CACS460', semester: 8, creditHours: 3, lectureHours: 3, tutorialHours: 0, labHours: 2 }
     ];
 
     await Subject.insertMany(subjects);

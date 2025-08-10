@@ -6,12 +6,9 @@ import Footer from '@/components/Footer';
 import { 
   Bell, 
   Calendar, 
-  Filter, 
   Search,
   AlertCircle,
-  Clock,
-  Users,
-  ChevronRight
+  Users
 } from 'lucide-react';
 import api from '@/lib/api';
 import { formatDate, getNoticeTypeDisplayName } from '@/lib/utils';

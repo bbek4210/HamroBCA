@@ -11,8 +11,6 @@ import {
   Users, 
   Clock,
   Bell,
-  TrendingUp,
-  Search,
   ChevronRight
 } from 'lucide-react';
 import api from '@/lib/api';
@@ -21,8 +19,8 @@ import { formatDate, getSemesterName } from '@/lib/utils';
 interface DashboardStats {
   totalContent: number;
   totalSubjects: number;
-  recentContent: any[];
-  urgentNotices: any[];
+  recentContent: Array<{ _id: string; title: string; category: string; semester: number; subjectCode: string; createdAt: string }>;
+  urgentNotices: Array<{ _id: string; title: string; content: string; isUrgent: boolean; type?: string; createdAt: string }>;
 }
 
 export default function HomePage() {
@@ -240,7 +238,7 @@ export default function HomePage() {
                     </div>
                   ))
                 ) : (
-                  stats.recentContent.map((item: any) => (
+                  stats.recentContent.map((item) => (
                     <div key={item._id} className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                       <div className="flex items-start justify-between">
                         <div>
@@ -285,7 +283,7 @@ export default function HomePage() {
                     </div>
                   ))
                 ) : stats.urgentNotices.length > 0 ? (
-                  stats.urgentNotices.map((notice: any) => (
+                  stats.urgentNotices.map((notice) => (
                     <Link
                       key={notice._id}
                       href={`/notices/${notice._id}`}

@@ -22,8 +22,8 @@ app.use((0, cors_1.default)({
         : ['http://localhost:3000'],
     credentials: true
 }));
-app.use(express_1.default.json({ limit: '10mb' }));
-app.use(express_1.default.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express_1.default.json({ limit: '50mb' }));
+app.use(express_1.default.urlencoded({ extended: true, limit: '50mb' }));
 // Serve static files (uploaded content)
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, '../uploads')));
 // Add CORS headers for file serving
@@ -53,7 +53,7 @@ app.use((err, req, res, next) => {
     console.error('Error:', err);
     if (err.name === 'MulterError') {
         if (err.code === 'LIMIT_FILE_SIZE') {
-            return res.status(400).json({ message: 'File too large. Maximum size is 10MB.' });
+            return res.status(400).json({ message: 'File too large. Maximum size is 50MB.' });
         }
     }
     res.status(500).json({

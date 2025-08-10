@@ -17,7 +17,7 @@ import {
   Type
 } from 'lucide-react';
 import api from '@/lib/api';
-import { getNoticeTypeDisplayName } from '@/lib/utils';
+
 import Link from 'next/link';
 
 const noticeSchema = z.object({
@@ -35,7 +35,7 @@ type NoticeForm = z.infer<typeof noticeSchema>;
 
 export default function CreateNoticePage() {
   const router = useRouter();
-  const [adminData, setAdminData] = useState<any>(null);
+  const [adminData, setAdminData] = useState<{ email: string; name?: string } | null>(null);
   const [creating, setCreating] = useState(false);
   const [createSuccess, setCreateSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -104,9 +104,12 @@ export default function CreateNoticePage() {
       setTimeout(() => {
         router.push('/admin/notices');
       }, 2000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Create notice error:', error);
-      setError(error.response?.data?.message || 'Failed to create notice. Please try again.');
+      const errorMessage = error && typeof error === 'object' && 'response' in error 
+        ? (error.response as { data?: { message?: string } })?.data?.message || 'Failed to create notice. Please try again.'
+        : 'Failed to create notice. Please try again.';
+      setError(errorMessage);
     } finally {
       setCreating(false);
     }
@@ -138,7 +141,7 @@ export default function CreateNoticePage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
-        <AdminNavbar adminData={adminData} />
+        <AdminNavbar adminData={adminData || undefined} />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
