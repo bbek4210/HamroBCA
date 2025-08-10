@@ -21,6 +21,11 @@ const subjectSchema = z.object({
 // @desc    Get all subjects
 // @access  Public
 router.get('/', async (req, res) => {
+  // Add CORS headers
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
   try {
     const subjects = await Subject.find().sort({ semester: 1, name: 1 });
     res.json(subjects);

@@ -21,6 +21,11 @@ const noticeSchema = z.object({
 // @desc    Get all published notices
 // @access  Public
 router.get('/', async (req, res) => {
+  // Add CORS headers
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
   try {
     const { semester, type, page = 1, limit = 10 } = req.query;
 
@@ -83,6 +88,11 @@ router.get('/', async (req, res) => {
 // @desc    Get urgent notices
 // @access  Public
 router.get('/urgent', async (req, res) => {
+  // Add CORS headers
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
   try {
     const { semester } = req.query;
 
